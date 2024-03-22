@@ -1,0 +1,32 @@
+/*
+#QUESTÃO DE PROVA - 2023.2
+Este programa imprime um retângulo de asteriscos.
+*/
+
+#include <stdio.h>
+
+int main()
+{
+    int lado1 = 0, lado2 = 0, i, j;
+
+    printf("Digite o numero de asteriscos no lado 1: ");
+    scanf("%d", &lado1);
+
+    printf("Digite o numero de asteriscos no lado 2: ");
+    scanf("%d", &lado2);
+
+    for(i=1;i<=lado1;i++)
+    {
+        for(j=1;j<=lado2;j++)
+        {
+            if(i==1||i==lado1||j==1||j==lado2)
+            {
+                printf("*");    //Imprime asteriscos na borda
+            }else
+            {
+                printf(" ");    //Imprime espaço no centro do retângulo
+            }
+        }
+        printf("\n");
+    }
+}
