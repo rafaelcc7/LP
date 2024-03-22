@@ -1,0 +1,24 @@
+#include <stdio.h>
+
+//TROCA DE VALORES
+int main()
+{
+    int a, b, aux;
+
+    printf("Entre com um valor para A: ");
+    scanf("%d", &a);
+
+    printf("Entre com um valor para B: ");
+    scanf("%d", &b);
+
+    printf("Valores antes da troca:\n ");
+    printf("Valor de A: %d \n Valor de B: %d \n", a, b);
+
+    aux = a;
+    a = b;
+    b = aux;
+
+    printf("Valores apos a troca:\n ");
+    printf("Valor de A: %d \n Valor de B: %d", a, b);
+
+}
