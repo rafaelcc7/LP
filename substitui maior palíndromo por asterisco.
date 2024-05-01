@@ -1,0 +1,76 @@
+/*
+    Este programa faz:
+    - Contagem de palíndromos;
+    - Tamanho do maior palíndromo;
+    - Substitui maior palíndromo por *.
+*/
+
+#include <stdio.h>
+
+int main()
+{
+    char str[100], saida[100];
+    int i=0, j=0, k=0, primeiraletra = 0, ultimaletra = 0, ehpalindromo, iniciopalindromo = 0;;
+    int tampalavra = 0, cont = 0, maiortamanho = 0;
+
+    printf("Digite uma string: ");
+    gets(str);
+
+    for(i = 0; str[i] != '\0'; i++)
+    {
+        saida[i] = str[i];
+    }
+
+    for(i=0;str[i]!='\0';i++)
+    {
+        if(str[i] != ' ' && str[i] != '\n')
+        {
+            primeiraletra = i;
+
+            for(j=i; str[j]!=' '&&str[j]!='\n'&&str[j]!='\0';j++)
+            {
+                ultimaletra = j;
+            }
+
+            tampalavra = ultimaletra - primeiraletra + 1;
+            ehpalindromo = 1;
+
+            for(k=0;k<tampalavra/2;k++)
+            {
+                if(str[primeiraletra + k] != str[ultimaletra - k])
+                {
+                    ehpalindromo = 0;
+                    break;
+                }
+            }
+
+            if(ehpalindromo)
+            {
+                cont++;
+            }
+
+            if(ehpalindromo && tampalavra > maiortamanho)
+            {
+                maiortamanho = tampalavra;
+                iniciopalindromo = primeiraletra;
+            }
+
+            i = ultimaletra;        //Para seguir lendo as outras palavras.
+        }
+    }
+
+    for(int r = iniciopalindromo; r < iniciopalindromo + maiortamanho + 1; r++)
+    {
+        if(saida[r] != ' ' && saida[r] != '\n')
+        {
+            saida[r] = '*';
+        }
+    }
+
+    printf("Total de palindromos: %d", cont);
+    printf("\n");
+    printf("Total de letras do maior palindromo: %d", maiortamanho);
+    printf("\n");
+    printf("Frase modificada: %s", saida);
+
+}
