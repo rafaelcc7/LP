@@ -1,0 +1,66 @@
+/*
+    Este programa foi a P1 de 2024.1.
+    Pontuação: 2.5 pnts.
+    Este programa faz:
+    Coloca os números da diagonal principal em ordem crescente.
+*/
+
+#include <stdio.h>
+
+int main()
+{
+    int i, j, l, c, aux;
+
+    printf("Entre com o numero de linhas da matriz: \n");
+    scanf("%d",&l);
+
+    printf("Entre com o numero de linhas da matriz: \n");
+    scanf("%d",&c);
+
+    int mtx[l][c];
+
+    // LEITURA DA MATRIZ:
+    for(i=0;i<l;i++)
+         for(j=0;j<c;j++)
+        {
+            printf("\nEntre com o numero da posicao |%d| x |%d|: ", i, j);
+            scanf("%d", &mtx[i][j]);
+        }
+
+    printf("Matriz digitada: \n");
+
+    for(i=0;i<l;i++){
+         for(j=0;j<c;j++)
+         {
+             printf(" %d ", mtx[i][j]);
+         }
+         printf("\n");
+        }
+
+    //ORDENA A DIAGONAL PRINCIPAL:
+    for(i=0;i<l;i++){
+         for(j=0;j<c;j++)
+         {
+             if(mtx[i][i] > mtx[j][j])
+             {
+                aux = mtx[i][i];
+                mtx[i][i] = mtx[j][j];
+                mtx[j][j] = aux;
+             }
+
+         }
+    }
+
+    printf("\n");
+
+    printf("Matriz apos a troca: \n");
+    for(i=0;i<l;i++){
+         for(j=0;j<c;j++)
+         {
+             printf(" %d ",mtx[i][j]);
+         }
+         printf("\n");
+         
+        }
+        
+}
