@@ -1,0 +1,83 @@
+/*
+    Este programa foi a P1 de 2024.1 (DIA 1).
+    Pontuação: 2.5 pnts.
+    Este programa faz:
+    Compara os simétricos da matriz.
+    Se forem diferentes, fazer a troca.
+    Se forem iguais, substituir por asteriscos.
+*/
+
+#include <stdio.h>
+
+int main()
+{
+    int i, j, l = 0, c = 0;
+    int troca = 0;
+
+    printf("Entre com as dimensões da matriz: \n");
+    scanf("%d", &l);
+    scanf("%d", &c);
+
+    int matriz[l][c];
+
+    //LEITURA DA MATRIZ
+    for(i=0;i<l;i++)
+    {
+        for(j=0;j<c;j++)
+        {
+            printf("Entre com as coordenadas |%d|x|%d| da matriz: ", i, j);
+            scanf("%d", &matriz[i][j]);
+        }
+    }
+
+    printf("\n");
+
+    //EXIBIÇÃO DA MATRIZ
+    printf("Matriz digitada:\n");
+     for(i=0;i<l;i++)
+    {
+        for(j=0;j<c;j++)
+        {
+            printf("[%d]", matriz[i][j]);
+        }
+        printf("\n");
+    }
+
+    //PROCESSAMENTO
+    for(i=0;i<l;i++)
+    {
+        for(j=i+1;j<c;j++)
+        {
+            if(matriz[i][j] == matriz[j][i])
+            {
+                matriz[i][j] = '*';
+                matriz[j][i] = '*';
+            }
+
+            if(matriz[i][j] != matriz[j][i])
+            {
+                troca = matriz[i][j];
+                matriz[i][j] = matriz[j][i];
+                matriz[j][i] = troca;
+            }
+        }
+    }
+
+    printf("\n");
+
+    //EXIBIÇÃO DA MATRIZ APÓS O PROCESSAMENTO
+    printf("Matriz final:\n");
+     for(i=0;i<l;i++)
+    {
+         for(j=0;j<c;j++)
+         {
+             if(matriz[i][j] == '*')
+                printf("[*]",matriz[i][j]);
+             else
+                printf("[%d]",matriz[i][j]);
+         }
+         printf("\n");
+    }
+
+    return 0;
+}
