@@ -1,0 +1,62 @@
+/*
+    Este programa faz:
+    - Verifica se um caractere está contido em string;
+    - Se sim, diz quantas vezes;
+    - Printa na tela a string 2 na posição em que o caractere está contido.
+*/
+
+#include <stdio.h>
+
+int main()
+{
+    int i, j, verifica = 0, cont = 0;
+    char str1[1000], str2[1000], caracter;
+
+    puts("Entre com a primeira string.");
+    gets(str1);
+
+    puts("Entre com a segunda string.");
+    gets(str2);
+
+    puts("Digite um carectere para verificar se existe na string 1:");
+    scanf("%c", &caracter);
+
+    //VERIFICA SE O CARACTERE ESTÁ CONTIDO E QUANTAS VEZES.
+    for(i=0;str1[i]!='\0';i++)
+    {
+        if(str1[i] == caracter)
+        {
+            verifica = 1;
+            cont++;
+        }
+    }
+
+    if(verifica)
+    {
+        printf("O caractere |%c| esta contido na primeira string %d vezes.", caracter, cont);
+    }
+    else
+    {
+        printf("O caractere |%c| nao esta contido na string.");
+    }
+
+    printf("\n");
+    printf("A saida sera: ");
+
+    //PRINTA STR2 NA TELA NA POSIÇÃO DO CARACTERE DIGITADO.
+    for(i=0;str1[i]!='\0';i++)
+    {
+        if(str1[i] == caracter)
+        {
+            for(j=0;str2[j]!='\0';j++)
+            {
+                printf("%c", str2[j]);
+            }
+        }else
+        {
+            printf("%c", str1[i]);
+        }
+    }
+
+    return 1;
+}
