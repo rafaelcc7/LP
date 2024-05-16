@@ -1,0 +1,130 @@
+/*
+    Este programa faz:
+    - Ler e exibe matriz;
+    - Exibe diagonal principal;
+    - Ordena diagonal principal
+    - Exibe matriz após ordenação.
+*/
+
+#include <stdio.h>
+#define MAX 100
+#define tam 10
+
+int dimensaomtz()
+{
+    int ndimensao;
+    printf("Entre com o numero de dimensoes de uma matriz quadrada.\n");
+    scanf("%d", &ndimensao);
+
+    return ndimensao;
+
+}
+
+void lermatriz(char matriz[MAX][MAX], int dimensao)
+{
+    int i, j;
+    for(i = 0; i < dimensao; i++)
+    {
+        for(j = 0; j < dimensao; j++)
+        {
+            printf("Entre com o elemento [%d]x[%d]", i, j);
+            scanf(" %c", &matriz[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+
+void exibirmatriz(char matriz[MAX][MAX], int dimensao)
+{
+    int i, j;
+    printf("Matriz digitada: \n");
+    for(i = 0; i < dimensao; i++)
+    {
+        for(j = 0; j < dimensao; j++)
+        {
+            printf("[%c]", matriz[i][j]);
+        }
+        printf("\n");
+    }
+
+}
+
+void encontrardiagonal(char matriz[MAX][MAX], int dimensao)
+{
+    char caracteres[dimensao];
+    int i, j, k = 0, verifica = 1;
+
+    printf("\nDiagonal principal: \n");
+    for(i = 0; i < dimensao; i++)
+    {
+        for(j = 0; j < dimensao; j++)
+        {
+            if(verifica)
+            {
+                printf("%c", matriz[i][i]);
+                verifica = 0;
+            }
+        }
+        verifica = 1;
+    }
+    printf("\n");
+}
+
+void ordenar(char matriz[MAX][MAX], int dimensao)
+{
+    int i, j, k = 0;
+    int aux = 0;
+
+    for(i = 0; i < dimensao; i++)
+    {
+        for(j = 0; j < dimensao; j++)
+        {
+            if(matriz[i][i]<matriz[j][j])
+            {
+                aux = matriz[i][i];
+                matriz[i][i] = matriz[j][j];
+                matriz[j][j] = aux;
+            }
+
+        }
+    }
+}
+
+void exibirmatriztroca(char matriz[MAX][MAX], int dimensao)
+{
+    int i, j;
+
+    printf("\nMatriz apos a ordenacao: \n");
+    for(i = 0; i < dimensao; i++)
+    {
+        for(j = 0; j < dimensao; j++)
+        {
+            printf("[%c]", matriz[i][j]);
+        }
+        printf("\n");
+    }
+
+}
+int main()
+{
+    int dimensao;
+    dimensao = dimensaomtz();
+
+    printf("Dimensao da matriz: %d", dimensao);
+    printf("\n");
+
+    char matriz[MAX][MAX];
+
+    lermatriz(matriz, dimensao);
+
+    exibirmatriz(matriz, dimensao);
+
+    encontrardiagonal(matriz, dimensao);
+
+    ordenar(matriz, dimensao);
+
+    exibirmatriztroca(matriz, dimensao);
+
+    return 1;
+}
