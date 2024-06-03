@@ -1,0 +1,66 @@
+/*
+    Este programa faz:
+    Na str1:
+    - Caso seja vogal, SAIDA = str3.
+    - Senão, SAIDA = str2.
+*/
+
+
+#include <stdlib.h>
+#include <string.h>
+#include <string.h>
+#define MAX 10000
+
+void lerstr(char str[MAX])
+{
+    gets(str);
+}
+
+void troca(char str1[MAX], char str2[MAX], char str3[MAX], char saida[MAX])
+{
+    int i = 0, j = 0, k = 0, s = 0;
+
+    for(i=0;str1[i]!='\0';i++)
+    {
+        if(str1[i] == 'a' || str1[i] == 'e' || str1[i] == 'i' || str1[i] == 'o' || str1[i] == 'u')
+        {
+            for(j=0;str3[j]!='\0';j++)
+            {
+                saida[s] = str3[j];
+                s++;
+            }
+        }else
+        {
+            for(k=0;str2[k]!='\0';k++)
+            {
+                saida[s] = str2[k];
+                s++;
+            }
+        }
+    }
+
+}
+
+void exibe(char saida[MAX])
+{
+    puts("String substituida:");
+    printf("%s", saida);
+}
+
+int main()
+{
+    char str1[MAX], str2[MAX], str3[MAX], saida[MAX];
+
+    puts("Digite a string 1:");
+    lerstr(str1);
+    puts("Digite a string 2:");
+    lerstr(str2);
+    puts("Digite a string 3:");
+    lerstr(str3);
+
+    troca(str1, str2, str3, saida);
+
+    exibe(saida);
+
+    return 0;
+}
