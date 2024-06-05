@@ -1,0 +1,56 @@
+/*
+    Este programa faz:
+    - Conta sequencia e repete caracteres não repetidos.
+    Ex:
+    Entrada: aaacr7pp88.
+    Saída: 3cr722.
+*/
+
+#include <stdio.h>
+#define max 1000
+
+void lerstr(char str[])
+{
+    gets(str);
+}
+
+void sequencia(char str[], char saida[])
+{
+    int i, j, s = 0, aux, cont;
+
+    for(i=0;str[i]!='\0';i++)
+    {
+        if(str[i] == str[i+1])
+        {
+            cont = 0;
+            aux = i;
+            while(str[i] == str[aux])
+            {
+                cont++;
+                aux++;
+            }
+            i = i + cont - 1;
+            saida[s] = 48 + cont;
+            s++;
+        }else
+        {
+            saida[s] = str[i];
+            s++;
+        }
+    }
+
+    puts(saida);
+}
+
+int main()
+{
+    char str[max], saida[max];
+
+    printf("Digite a string: ");
+    lerstr(str);
+
+    sequencia(str, saida);
+
+
+    return 0;
+}
