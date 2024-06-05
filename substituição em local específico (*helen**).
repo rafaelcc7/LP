@@ -1,0 +1,80 @@
+/*
+    Este programa faz:
+    - Substituição em local específico.
+    Ex: Str1 = helen; Str2 = CASA; Str3 = el.
+    Saida = *CASA**.
+*/
+#include <stdio.h>
+#define max 10000
+
+void lerstr(char str[])
+{
+    gets(str);
+}
+
+void subs(char str1[], char str2[], char str3[], char saida[])
+{
+    int i, j, k = 0, x = 0, aux;
+    int verifica = 0;
+
+    for(i=0;str1[i]!='\0';i++)
+    {
+        if(str1[i] == str3[k])
+        {
+            aux = i;
+            for(j=0;str3[j]!='\0';j++)
+            {
+                if(str1[aux] == str3[j])
+                {
+                    verifica++;
+                }
+                aux++;
+            }
+            if(verifica == strlen(str3))
+            {
+                for(j=0;str2[j]!='\0';j++)
+                {
+                    saida[x] = str2[j];
+                    x++;
+                }
+            }else
+            {
+                saida[x] = '*';
+                x++;
+            }
+        }else
+        {
+            saida[x] = '*';
+            x++;
+        }
+    }
+}
+
+void exibe(char str[])
+{
+    int i = 0;
+
+    for(i=0;i<strlen(str)-1;i++)
+    {
+        printf("%c", str[i]);
+    }
+}
+
+int main()
+{
+
+    char str1[max], str2[max], str3[max], saida[max];
+
+    printf("Digite a primeira string: ");
+    lerstr(str1);
+    printf("Digite a segunda string: ");
+    lerstr(str2);
+    printf("Digite a terceira string: ");
+    lerstr(str3);
+
+    subs(str1, str2, str3, saida);
+
+    exibe(saida);
+
+    return 0;
+}
