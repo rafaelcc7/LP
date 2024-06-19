@@ -1,0 +1,104 @@
+/*
+    Este programa faz:
+    - insere número em lista encadeada;
+    - imprime lista encadeada;
+    - ordena lista encadeada.
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct no
+{
+    int numero;
+    struct no *prox;
+};
+
+int digite()
+{
+    int num;
+    printf("Digite o valor desejado: ");
+    scanf("%d", &num);
+
+    return num;
+}
+typedef struct no Lista;
+
+Lista *insere(Lista *l, int valor)
+{
+    Lista *pont;
+
+    pont = (Lista*)malloc(sizeof(Lista));
+    pont->numero = valor;
+    pont->prox = l;
+
+    return pont;
+}
+
+void imprime(Lista *l)
+{
+    Lista *aux;
+    aux = l;
+
+    while(aux != NULL)
+    {
+        printf(" |%d| ", aux->numero);
+        aux = aux->prox;
+    }
+    printf("\n");
+}
+
+void ordena(Lista *l)
+{
+    int troca;
+    Lista *aux;
+    Lista *mudacaixinha;
+    mudacaixinha = NULL;
+
+    int atual;
+    do
+    {
+        aux = l;
+        atual = 0;
+        while(aux->prox != mudacaixinha)
+        {
+
+            if(aux->numero > aux->prox->numero)
+            {
+                troca = aux->numero;
+                aux->numero = aux->prox->numero;
+                aux->prox->numero = troca;
+                atual = 1;      /* Se o atual não é atualizado para 1, significa que nenhum numero foi alterado de posição.*/
+            }
+
+            aux = aux->prox;
+        }
+
+        mudacaixinha = aux;     /*Atualiza mudacaixinha para não terminar o laço while acima.*/
+
+    }while(atual);
+}
+int main()
+{
+    int valor;
+
+    Lista *l;
+    l = NULL;
+    valor = digite();
+
+    l = insere(l,valor); /*l = NULL*/
+
+    valor = digite();
+    l = insere(l,valor);
+
+    valor = digite();
+    l = insere(l,valor);
+
+    imprime(l);
+
+    ordena(l);
+
+    imprime(l);
+
+    return 0;
+}
