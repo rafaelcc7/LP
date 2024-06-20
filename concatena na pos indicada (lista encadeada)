@@ -1,0 +1,92 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct no
+{
+    int num;
+    struct no *prox;
+};
+typedef struct no Lista;
+
+Lista *insere(Lista *L, int valor)
+{
+    Lista *aux;
+    aux = (Lista*)malloc(sizeof(Lista));
+
+    aux->num = valor;
+    aux->prox = L;
+
+    return aux;
+}
+
+void printa(Lista *L)
+{
+    Lista *aux = L;
+
+    while(aux != NULL)
+    {
+        printf("|%d|", aux->num);
+        aux = aux->prox;
+    }
+}
+
+insereLista(Lista *L1, Lista *L2, int n)
+{
+    Lista *aux = L1, *ant = NULL, *aux2;
+
+    while(aux != NULL && aux->num != n)
+    {
+        ant = aux;
+        aux = aux->prox;
+    }
+
+    if(aux == NULL)
+    {
+        puts("O numero digitado nao esta contido.");
+        exit(0);
+    }
+    //FUNÇÃO QUE ADICIONA A LISTA 2 APÓS O NÚMERO ESCOLHIDO.
+   /* if(ant == NULL)
+    {
+        L1 = aux->prox;
+    }*/
+
+    ant->prox = L2;
+    aux2 = L2;
+
+    while(aux2->prox != NULL)
+    {
+        aux2 = aux2->prox;
+    }
+    aux2->prox = aux;
+}
+int main(void)
+{
+    Lista *L1;
+    Lista *L2;
+    int n = 0;
+    L1 = NULL;
+    L2 = NULL;
+
+    L1 = insere(L1, 10);
+    L1 = insere(L1, 20);
+    L1 = insere(L1, 30);
+    L1 = insere(L1, 40);
+
+    /*printa(L1);*/
+
+    L2 = insere(L2, 11);
+    L2 = insere(L2, 11);
+    L2 = insere(L2, 11);
+    L2 = insere(L2, 11);
+
+    /*printa(L1);*/
+
+    scanf("%d", &n);
+
+    insereLista(L1, L2, n);
+    puts("Apos a concatenacao: ");
+    printa(L1);
+
+    return 0;
+}
