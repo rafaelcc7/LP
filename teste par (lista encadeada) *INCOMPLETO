@@ -1,0 +1,128 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct no
+{
+    int num;
+    struct no *prox;
+};
+typedef struct no Lista;
+
+Lista *insere(Lista *L, int valor)
+{
+    Lista *aux;
+    aux = (Lista*)malloc(sizeof(Lista));
+
+    aux->num = valor;
+    aux->prox = L;
+
+    return aux;
+}
+
+void printa(Lista *L)
+{
+    Lista *aux = L;
+
+    while(aux != NULL)
+    {
+        printf("|%d|", aux->num);
+        aux = aux->prox;
+    }
+}
+
+Lista *insereLista(Lista *L1, Lista *L2, int n)
+{
+    Lista *aux = L1, *ant = NULL, *aux2;
+
+    while(aux != NULL && aux->num != n)
+    {
+        ant = aux;
+        aux = aux->prox;
+    }
+
+    if(aux == NULL)
+    {
+        puts("O numero digitado nao esta contido.");
+        exit(0);
+    }
+
+    if(ant == NULL)
+    {
+        aux2 = L2;
+
+        while(aux2->prox != NULL)
+        {
+            aux2 = aux2->prox;      /*Percorre L2*/
+        }
+
+        aux2->prox = L1;    /*insere a lista na posição indicada.*/
+        L1 = L2;            /*Indica que o inicio da lista é, agora, o inicio de L2.*/
+    }
+    else
+    {
+        ant->prox = L2;     /*insere a lista na posição indicada.*/
+        aux2 = L2;
+         while(aux2->prox != NULL)
+        {
+            aux2 = aux2->prox;  /*Deixa aux2 na ultima caixinha antes do NULL.*/
+        }
+        aux2->prox = aux;
+    }
+
+    return L1;
+}
+
+void identificapar(Lista *L1, Lista *L2)
+{
+	Lista *aux, *ant;
+	aux = L1;
+	
+	
+	while(aux != NULL)
+	{
+		if(aux->num %2 == 0)
+		{
+			ant->prox = L2;
+			L1 = L2;
+		}
+		ant = aux;
+		aux = aux->prox;
+	}
+}
+int main(void)
+{
+    Lista *L1;
+    Lista *L2;
+    int n;
+    L1 = NULL;
+    L2 = NULL;
+
+    L1 = insere(L1, 1);
+    L1 = insere(L1, 21);
+    L1 = insere(L1, 70);
+    L1 = insere(L1, 41);
+
+    /*printa(L1);*/
+
+    L2 = insere(L2, 11);
+    L2 = insere(L2, 11);
+    L2 = insere(L2, 11);
+    L2 = insere(L2, 11);
+
+    /*printa(L1);*/
+
+    /*puts("Digite o numero em que deseja inserir L2: ");
+    scanf("%d", &n);*/
+
+    system("cls");
+
+    /*L1 = insereLista(L1, L2, n);
+    puts("Apos a concatenacao: ");
+    printa(L1);*/
+    
+    identificapar(L1, L2);
+    
+    printa(L1);
+
+    return 0;
+}
