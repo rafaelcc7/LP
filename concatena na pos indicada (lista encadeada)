@@ -30,7 +30,7 @@ void printa(Lista *L)
     }
 }
 
-insereLista(Lista *L1, Lista *L2, int n)
+Lista *insereLista(Lista *L1, Lista *L2, int n)
 {
     Lista *aux = L1, *ant = NULL, *aux2;
 
@@ -45,26 +45,37 @@ insereLista(Lista *L1, Lista *L2, int n)
         puts("O numero digitado nao esta contido.");
         exit(0);
     }
-    //FUNÇÃO QUE ADICIONA A LISTA 2 APÓS O NÚMERO ESCOLHIDO.
-   /* if(ant == NULL)
-    {
-        L1 = aux->prox;
-    }*/
 
-    ant->prox = L2;
-    aux2 = L2;
-
-    while(aux2->prox != NULL)
+    if(ant == NULL)
     {
-        aux2 = aux2->prox;
+        aux2 = L2;
+
+        while(aux2->prox != NULL)
+        {
+            aux2 = aux2->prox;      /*Percorre L2*/
+        }
+
+        aux2->prox = L1;    /*insere a lista na posição indicada.*/
+        L1 = L2;            /*Indica que o inicio da lista é, agora, o inicio de L2.*/
     }
-    aux2->prox = aux;
+    else
+    {
+        ant->prox = L2;     /*insere a lista na posição indicada.*/
+        aux2 = L2;
+         while(aux2->prox != NULL)
+        {
+            aux2 = aux2->prox;  /*Deixa aux2 na ultima caixinha antes do NULL.*/
+        }
+        aux2->prox = aux;
+    }
+
+    return L1;
 }
 int main(void)
 {
     Lista *L1;
     Lista *L2;
-    int n = 0;
+    int n;
     L1 = NULL;
     L2 = NULL;
 
@@ -82,9 +93,12 @@ int main(void)
 
     /*printa(L1);*/
 
+    puts("Digite o numero em que deseja inserir L2: ");
     scanf("%d", &n);
 
-    insereLista(L1, L2, n);
+    system("cls");
+
+    L1 = insereLista(L1, L2, n);
     puts("Apos a concatenacao: ");
     printa(L1);
 
