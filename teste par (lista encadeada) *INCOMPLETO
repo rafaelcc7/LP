@@ -1,43 +1,55 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct no{
+int lervalor(int lista)
+{
+    int valor;
+    printf("Digite os valores da lista %d: ", lista);
+    scanf("%d", &valor);
+
+    return valor;
+}
+
+struct no
+{
     int num;
     struct no *prox;
 };
-typedef struct no lista;
+typedef struct no Lista;
 
-lista* insere(lista *L, int i){
-    lista *novo;
-    novo = (lista *)malloc(sizeof(lista));
-    if (novo == NULL){
-        printf("Erro de alocação de memória.\n");
-        exit(1);
-    }
-    novo->num = i;
-    novo->prox = L;
-    return novo;
+Lista *insere(Lista *L, int valor)
+{
+    Lista *aux;
+    aux = (Lista*)malloc(sizeof(Lista));
+
+    aux->num = valor;
+    aux->prox = L;
+
+    return aux;
 }
 
-void imprimir(lista *L){
-    lista *aux = L;
-    while (aux != NULL){
+void printa(Lista *L)
+{
+    Lista *aux = L;
+
+    while(aux != NULL)
+    {
         printf("|%d|", aux->num);
         aux = aux->prox;
     }
     printf("\n");
 }
 
-lista* copiarLista(lista *L){
+Lista* copiarLista(Lista *L){
     if (L == NULL)
         return NULL;
 
-    lista *nova = NULL;
-    lista *ultimo = NULL;
-    lista *aux = L;
+    Lista *nova = NULL;
+    Lista *ultimo = NULL;
+    Lista *aux = L;
 
     while (aux != NULL){
-        lista *novo = (lista *)malloc(sizeof(lista));
+        Lista *novo = (Lista *)malloc(sizeof(Lista));
         if (novo == NULL){
             printf("Erro de alocação de memória.\n");
             exit(1);
@@ -58,23 +70,21 @@ lista* copiarLista(lista *L){
     return nova;
 }
 
-lista* inserirLista(lista *L1, lista *L2, int num){
-    lista *aux = L1;
-    lista *ant = NULL;
-    lista *FinalL2 = L2;
-
-    while (FinalL2->prox != NULL){
-        FinalL2 = FinalL2->prox;
-    }
+Lista* inserelista(Lista *L1, Lista *L2, int num){
+    Lista *aux = L1;
+    Lista *ant = NULL;
+    Lista *FinalL2;
 
     while (aux != NULL){
-        if (aux->num %2 == 0){
-            lista *copiaL2 = copiarLista(L2);
+        if (aux->num == num){
+            Lista *copiaL2 = copiarLista(L2);
             FinalL2 = copiaL2;
+
             while (FinalL2->prox != NULL){
                 FinalL2 = FinalL2->prox;
             }
-            lista *excluir = aux;
+
+            Lista *excluir = aux;
             if (ant == NULL){
                 L1 = copiaL2;
             } else {
@@ -83,6 +93,8 @@ lista* inserirLista(lista *L1, lista *L2, int num){
             FinalL2->prox = aux->prox;
             aux = aux->prox;
             free(excluir);
+
+            ant = FinalL2;
         }else{
             ant = aux;
             aux = aux->prox;
@@ -91,55 +103,62 @@ lista* inserirLista(lista *L1, lista *L2, int num){
     return L1;
 }
 
-void ordena(lista *L2){
+void ordena(Lista *L2)
+{
     int troca;
-    lista *aux;
-    lista *mudacaixinha = NULL;
+    Lista *aux;
+    Lista *mudacaixinha = NULL;
     int atual;
 
-    do{
+    do
+    {
         aux = L2;
         atual = 0;
-        while (aux->prox != mudacaixinha){
-            if (aux->num > aux->prox->num){
+        while(aux->prox != mudacaixinha)
+        {
+            if(aux->num > aux->prox->num)
+            {
                 troca = aux->num;
                 aux->num = aux->prox->num;
                 aux->prox->num = troca;
                 atual = 1;
             }
+
             aux = aux->prox;
         }
         mudacaixinha = aux;
-    } while(atual);
+
+    }while(atual);
 }
 
-int main() {
-    lista *L1 = NULL;
-    lista *L2 = NULL;
-    int numEsc;
+int main(void)
+{
+    Lista *L1 = NULL;
+    Lista *L2 = NULL;
+    int valor, compara;
 
-    // INSERE VALORES NA LISTA -> 4321432143214321
-    for (int i = 0; i < 4; i++) {
-        for (int j = 0; j < 4; j++) {
-            L1 = insere(L1, j);
-        }
+    for (int i = 0; i < 7; i++) {
+        valor = lervalor(1);
+        L1 = insere(L1, valor);
     }
 
-    L2 = insere(L2, 7);
-    L2 = insere(L2, 9);
-    L2 = insere(L2, 8);
+    for (int i = 0; i < 4; i++) {
+        valor = lervalor(2);
+        L2 = insere(L2, valor);
+    }
 
-
-    imprimir(L1);
-    imprimir(L2);
-
-    printf("\n");
+    printa(L1);
+    printa(L2);
 
     ordena(L2);
-    L1 = inserirLista(L1, L2, numEsc);
 
-    puts("Lista apos a subst: ");
-    imprimir(L1);
+    puts("L2 ordenada: ");
+    printa(L2);
+
+    puts("Digite o valor onde inserir L2 em L1: ");
+    scanf("%d", &compara);
+    L1 = inserelista(L1, L2, compara);
+    printa(L1);
 
     return 0;
 }
