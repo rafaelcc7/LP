@@ -1,0 +1,118 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct no
+{
+    char letra;
+    struct no *prox;
+};
+
+typedef struct no Lista;
+
+Lista *insere(Lista *L, char letra)
+{
+    Lista *novo;
+
+    novo = (Lista*)malloc(sizeof(Lista));
+    novo->letra = letra;
+    novo->prox = L;
+
+    return novo;
+}
+
+void imprime(Lista *L)
+{
+    Lista *aux = L;
+
+    while(aux != NULL)
+    {
+        printf("%c", aux->letra);
+        aux = aux->prox;
+
+    }
+    printf("\n");
+}
+
+Lista *concatena(Lista *L1, Lista *L2)
+{
+    Lista *aux1 = L1, *aux2 = L2;
+
+    while(aux1->prox != NULL)
+    {
+        aux1 = aux1->prox;
+    }
+    aux1->prox = L2;
+
+    return L1;
+}
+
+Lista *vogais(Lista *L1, Lista *LV)
+{
+    Lista *aux = L1;
+    while(aux != NULL)
+    {
+        if(aux->letra == 'a' || aux->letra == 'e' || aux->letra == 'i' || aux->letra == 'o' || aux->letra == 'u')
+            LV = insere(LV, aux->letra);
+        aux = aux->prox;
+    }
+    return LV;
+}
+
+Lista *consoantes(Lista *L1, Lista *LC)
+{
+    Lista *aux = L1;
+    while(aux != NULL)
+    {
+        if(aux->letra == 'b' || aux->letra == 'c' || aux->letra == 'd' || aux->letra == 'f' || aux->letra == 'g' ||
+           aux->letra == 'h' || aux->letra == 'j' || aux->letra == 'k' || aux->letra == 'l' || aux->letra == 'm' ||
+           aux->letra == 'n' || aux->letra == 'p' || aux->letra == 'q' || aux->letra == 'r' || aux->letra == 's' ||
+           aux->letra == 't' || aux->letra == 'v' || aux->letra == 'w' || aux->letra == 'x' || aux->letra == 'y' || aux->letra == 'z')
+            LC = insere(LC, aux->letra);
+
+        aux = aux->prox;
+    }
+    return LC;
+}
+
+int main(void)
+{
+
+    Lista *L1 = NULL;
+    Lista *L2 = NULL;
+    Lista *LV = NULL;
+    Lista *LC = NULL;
+
+    L1 = insere(L1, ' ');
+    L1 = insere(L1, 'a');
+    L1 = insere(L1, 'f');
+    L1 = insere(L1, 'a');
+    L1 = insere(L1, 'r');
+
+    L2 = insere(L2, 'o');
+    L2 = insere(L2, 'r');
+    L2 = insere(L2, 'd');
+    L2 = insere(L2, 'e');
+    L2 = insere(L2, 'p');
+
+    imprime(L1);
+    imprime(L2);
+
+    L1 = concatena(L1, L2);
+
+    imprime(L1);
+
+    LV = vogais(L1, LV);
+
+    imprime(LV);
+
+    LC = consoantes(L1, LC);
+
+    imprime(LC);
+
+    LV = concatena(LV, LC);
+
+    printf("Saida: ");
+    imprime(LV);
+
+    return 0;
+}
