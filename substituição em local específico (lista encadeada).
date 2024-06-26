@@ -43,6 +43,37 @@ int verifica(Lista *L1, Lista *L3)
     return 1;
 }
 
+Lista* copiarLista(Lista *L){
+    if (L == NULL)
+        return NULL;
+
+    Lista *nova = NULL;
+    Lista *ultimo = NULL;
+    Lista *aux = L;
+
+    while (aux != NULL){
+        Lista *novo = (Lista *)malloc(sizeof(Lista));
+        if (novo == NULL){
+            printf("Erro de alocação de memória.\n");
+            exit(1);
+        }
+        novo->letra = aux->letra;
+        novo->prox = NULL;
+
+        if (nova == NULL){
+            nova = novo;
+        }else{
+            ultimo->prox = novo;
+        }
+
+        ultimo = novo;
+        aux = aux->prox;
+    }
+
+    return nova;
+}
+
+
 Lista *substitui(Lista *L1, Lista *L3, Lista *L2)
 {
     Lista *ant = NULL;
@@ -52,32 +83,36 @@ Lista *substitui(Lista *L1, Lista *L3, Lista *L2)
     {
         if (verifica(aux, L3))
         {
-            while (L3 != NULL)
+            Lista *copiaL3 = L3;
+            while (copiaL3 != NULL)
             {
                 aux = aux->prox;
-                L3 = L3->prox;
+                copiaL3 = copiaL3->prox;
+            }
+
+            Lista *copiaL2 = copiarLista(L2);
+            Lista *FinalL2 = copiaL2;
+
+            while(FinalL2->prox != NULL)
+            {
+                FinalL2 = FinalL2->prox;
             }
 
             if (ant == NULL)
             {
-                L1 = L2;
+                L1 = copiaL2;
             } else
             {
-                ant->prox = L2;
+                ant->prox = copiaL2;
             }
 
-            Lista *fim = L2;
-            while (fim->prox != NULL)
-            {
-                fim = fim->prox;
-            }
-
-            fim->prox = aux;
-            return L1;
+            FinalL2->prox = aux;
         }
-
-        ant = aux;
-        aux = aux->prox;
+        else
+        {
+            ant = aux;
+            aux = aux->prox;
+        }
     }
     return L1;
 }
@@ -88,21 +123,23 @@ int main()
     Lista *L2 = NULL;
     Lista *L3 = NULL;
 
-    L1 = insere(L1, 'a');
-    L1 = insere(L1, 'a');
-    L1 = insere(L1, 'f');
-    L1 = insere(L1, 'a');
-    L1 = insere(L1, 'r');
+    L1 = insere(L1, 'n');
+    L1 = insere(L1, 'e');
+    L1 = insere(L1, 'l');
+    L1 = insere(L1, 'e');
+    L1 = insere(L1, 'h');
+    L1 = insere(L1, 'l');
+    L1 = insere(L1, 'e');
 
-    L2 = insere(L2, 'x');
-    L2 = insere(L2, 'x');
-    L2 = insere(L2, 'x');
-    L2 = insere(L2, 'x');
-    L2 = insere(L2, 'x');
-    L2 = insere(L2, 'x');
 
-    L3 = insere(L3, 'a');
-    L3 = insere(L3, 'f');
+    L2 = insere(L2, 'A');
+    L2 = insere(L2, 'S');
+    L2 = insere(L2, 'A');
+    L2 = insere(L2, 'C');
+
+
+    L3 = insere(L3, 'l');
+    L3 = insere(L3, 'e');
 
     puts("NA POSICAO QUE L3 APARECER EM L1, O PROGRAMA SUBSTITUI POR L2.");
     printf("Lista L1 antes da substituição:\n");
